@@ -50,5 +50,11 @@ public class Point3D
 		this.z = z;
 	}
 	
+	public Point3D GetPoint()
+	{
+		return new Point3D(this.x  , this.y  ,this.z ); 
+	}
+	
+	
 	
 }
