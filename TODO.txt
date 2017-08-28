@@ -1,1 +1,5 @@
-make the game engine
+1. make the game engine
+
+2. make working screen 
+
+3. figure out the math behind threeD games 
