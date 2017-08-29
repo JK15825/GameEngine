@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.swing.JPanel;
+
 public class Screen extends JPanel
 {
 	private int WIDTH;

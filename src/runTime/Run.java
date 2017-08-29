@@ -8,6 +8,9 @@ package runTime;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+
+import com.sun.glass.events.KeyEvent;
+
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
@@ -15,11 +18,15 @@ public class Run implements Runnable
 {
 	private JFrame frame;
 	private Screen gameScreen;
+	private boolean running;
+	private int frames;
+	private int updates;
 	public Run()
 	{
 		frame = new JFrame("THE FRAME");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setUndecorated(true);
+
 		gameScreen = new Screen();
 		frame.add(gameScreen);
 		
@@ -36,18 +43,57 @@ public class Run implements Runnable
 	public void run()
 	{
 		init();
+		
+		
+		long lastTime = System.nanoTime();
+        double amountOfTicks = 60D;
+        double ns = 1000000000 / amountOfTicks;
+        double delta = 0;
+        long timer = System.currentTimeMillis();
+        int updates = 0;
+        int frames = 0;
+        
+        while(running)
+        {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            while(delta >= 1)
+            {
+                //tick();
+                updates++;
+                frames++;
+
+                delta--;
+            }
+            if(System.currentTimeMillis() - timer > 1000)
+            {
+                timer+=1000;
+                System.out.println("FPS: " + frames + " TICKS: " + updates);
+                this.frames = frames;
+                this.updates = updates;
+                frames = 0;
+                updates = 0;
+            }
+            
+        }
 	}
 	private void init()
 	{
 		frame.setVisible(true);
 		JRootPane rootPane = frame.getRootPane();
-		rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed ESC"), "closeWindow");
+		rootPane.getInputMap(JRootPane.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0), "closeWindow");
 		rootPane.getActionMap().put("closeWindow",new AbstractAction() {
 			public void actionPerformed(ActionEvent e)
 			{
 				System.exit(0);
 			}
 		});
+		
+		
+		running = true;
+		frames = 0;
+		updates = 0;
 	}
 	
 	public static void main(String args[])

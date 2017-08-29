@@ -1,5 +1,5 @@
 1. make the game engine
 
-2. make working screen 
+2. make working screen -- done?
 
 3. figure out the math behind threeD games 
