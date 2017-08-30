@@ -63,13 +63,14 @@ public class Run implements Runnable
                 //tick();
                 updates++;
                 frames++;
+                gameScreen.draw(this.frames, this.updates);
 
                 delta--;
             }
-            gameScreen.draw(this.frames, this.updates);
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer+=1000;
+                //System.out.println("FPS: " + frames + "\nUPDATES: " + updates);
                 this.frames = frames;
                 this.updates = updates;
                 frames = 0;
