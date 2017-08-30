@@ -66,10 +66,10 @@ public class Run implements Runnable
 
                 delta--;
             }
+            gameScreen.draw(this.frames, this.updates);
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer+=1000;
-                System.out.println("FPS: " + frames + " TICKS: " + updates);
                 this.frames = frames;
                 this.updates = updates;
                 frames = 0;
