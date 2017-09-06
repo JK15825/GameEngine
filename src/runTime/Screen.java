@@ -33,7 +33,7 @@ public class Screen implements GLEventListener
 		final GLProfile profile = GLProfile.get(GLProfile.GL2);
 	    GLCapabilities caps = new GLCapabilities(profile);
 	     
-	    caps.setDepthBits(16);
+	    //caps.setDepthBits(16);
 	    
 		GLCanvas canvas = new GLCanvas(caps);
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
@@ -42,6 +42,7 @@ public class Screen implements GLEventListener
 		
 		final JFrame frame = new JFrame();
 		frame.getContentPane().add(canvas);
+		
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e)
 			{
@@ -55,7 +56,7 @@ public class Screen implements GLEventListener
                   }.start();
 			}
 		});
-		bindKeys(frame);
+		//bindKeys(frame);
 		
 		canvas.addGLEventListener(this);
 		
@@ -127,13 +128,13 @@ public class Screen implements GLEventListener
 	public void init(GLAutoDrawable drawable) 
 	{
 		GL2 gl = drawable.getGL().getGL2();
-		gl.glClearColor(0f,0f,0f,0f);
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
+		//gl.glClearColor(1f,0f,1f,0f);
+		//gl.glClearDepth(1.0f);
+		//gl.glEnable(GL.GL_DEPTH_TEST);
+		//gl.glDepthFunc(GL.GL_LEQUAL);
 		
-		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-		gl.glShadeModel(GL2.GL_SMOOTH);
+		//gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		//gl.glShadeModel(GL2.GL_SMOOTH);
 		
 	}
 	
@@ -146,20 +147,19 @@ public class Screen implements GLEventListener
 	
 	private void render(GLAutoDrawable drawable)
 	{
-		GL2 gl = drawable.getGL().getGL2();
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-		
-		gl.glLoadIdentity();
-		gl.glBegin(GL.GL_TRIANGLES);
-		
-		gl.glColor3f(1.0f, 0.0f, .0f);
-		gl.glVertex2f(40f, 40f);
-		gl.glColor3f(1.0f, 0.0f, .0f);
-		gl.glVertex2f(0, 40f);
-		gl.glColor3f(1.0f, 0.0f, .0f);
-		gl.glVertex2f(-40f, 40f);
-		
+		final GL2 gl = drawable.getGL().getGL2();
+		//gl.glLoadIdentity();
+		gl.glTranslatef( 0f, 0f, -2.5f );
+		gl.glBegin( GL2.GL_LINES );
+		gl.glVertex3f( -0.75f,0f,0 );
+		gl.glVertex3f( 0f,-0.75f, 0 );
 		gl.glEnd();
+		//3d line
+		gl.glBegin( GL2.GL_LINES );
+		gl.glVertex3f( -0.75f,0f,3f );// 3 units into the window
+		gl.glVertex3f( 0f,-0.75f,3f );
+		gl.glEnd();
+		//System.out.println("WHAT THE FUCK");
 	}
 	
 	private void update()
@@ -173,19 +173,16 @@ public class Screen implements GLEventListener
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) 
 	{
-		GL2 gl = drawable.getGL().getGL2();
-		if(height == 0)
-			height = 1;
-		float aspect = (float)width/height;
-		gl.glViewport(0,0,width,height);
-		gl.glMatrixMode(GL2.GL_PROJECTION);
+		/*GL2 gl = drawable.getGL().getGL2();
+		if( height <=0 )
+			height =1;
+		final float h = ( float ) width / ( float ) height;
+		gl.glViewport( 0, 0, width, height );
+		gl.glMatrixMode( GL2.GL_PROJECTION );
 		gl.glLoadIdentity();
-		//glu.gluPerspective(45.0, aspect, 1, 20.0);
-		
-		gl.glOrtho(-width/2, width/2, -height/2, height/2, -1, 1);
-		gl.glMatrixMode(GL2.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		System.out.printf("Why am I in here %.2f",aspect);
+		glu.gluPerspective( 45.0f, h, 1.0, 20.0 );
+		gl.glMatrixMode( GL2.GL_MODELVIEW );
+		gl.glLoadIdentity();*/
 		
 	}
 	
