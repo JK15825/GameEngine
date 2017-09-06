@@ -28,7 +28,7 @@ public class Run implements Runnable
 		frame.setUndecorated(true);
 
 		gameScreen = new Screen();
-		frame.add(gameScreen);
+		//frame.add(gameScreen);
 		
 		frame.pack();
 		frame.setSize(720,480);
@@ -42,7 +42,7 @@ public class Run implements Runnable
 	}
 	public void run()
 	{
-		init();
+		/*init();
 		
 		
 		long lastTime = System.nanoTime();
@@ -94,7 +94,7 @@ public class Run implements Runnable
 		
 		running = true;
 		frames = 0;
-		updates = 0;
+		updates = 0;*/
 	}
 	
 	public static void main(String args[])
