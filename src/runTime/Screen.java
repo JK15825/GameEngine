@@ -132,8 +132,8 @@ public class Screen implements GLEventListener
 		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL.GL_LEQUAL);
 		
-		//gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-		//gl.glShadeModel(GL2.GL_SMOOTH);
+		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		gl.glShadeModel(GL2.GL_SMOOTH);
 		
 	}
 	
@@ -149,10 +149,15 @@ public class Screen implements GLEventListener
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		
+		gl.glLoadIdentity();
 		gl.glBegin(GL.GL_TRIANGLES);
-		gl.glVertex2f(1, 1);
-		gl.glVertex2f(0, 1);
-		gl.glVertex2f(-1, 1);
+		
+		gl.glColor3f(1.0f, 0.0f, .0f);
+		gl.glVertex2f(40f, 40f);
+		gl.glColor3f(1.0f, 0.0f, .0f);
+		gl.glVertex2f(0, 40f);
+		gl.glColor3f(1.0f, 0.0f, .0f);
+		gl.glVertex2f(-40f, 40f);
 		
 		gl.glEnd();
 	}
@@ -175,12 +180,13 @@ public class Screen implements GLEventListener
 		gl.glViewport(0,0,width,height);
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-		glu.gluPerspective(45.0, aspect, 1, 20.0);
+		//glu.gluPerspective(45.0, aspect, 1, 20.0);
 		
-		//gl.glOrtho(-width/2, width/2, -height/2, height/2, -1, 1);
+		gl.glOrtho(-width/2, width/2, -height/2, height/2, -1, 1);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		//System.out.printf("Why am I in here %.2f",aspect);
+		System.out.printf("Why am I in here %.2f",aspect);
+		
 	}
 	
 	public static void main(String args[])
